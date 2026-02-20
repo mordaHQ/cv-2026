@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#0B0C10">
     <meta name="description" content="Евгений Федорчук - Software Engineer. SaaS, AI и системная архитектура.">
 
@@ -29,6 +29,8 @@
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+            text-decoration: none !important;
+            /* Убираем все подчеркивания */
         }
 
         body {
@@ -38,7 +40,9 @@
             margin: 0;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
-            padding-bottom: 100px;
+            /* Учет безопасных зон для мобилок */
+            padding-bottom: calc(120px + env(safe-area-inset-bottom));
+            overflow-x: hidden;
         }
 
         /* --- Background Effects --- */
@@ -81,6 +85,13 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .hero-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -92,7 +103,20 @@
             font-size: 0.75rem;
             border: 1px solid rgba(100, 255, 218, 0.2);
             font-family: var(--font-code);
-            margin-bottom: 30px;
+            cursor: pointer;
+        }
+
+        .time-badge {
+            color: var(--text-muted);
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-badge span {
+            color: #fff;
         }
 
         .role {
@@ -100,6 +124,13 @@
             color: var(--accent);
             font-family: var(--font-code);
             margin-bottom: 15px;
+        }
+
+        .tagline {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.6;
         }
 
         /* --- Bento Grid --- */
@@ -111,17 +142,19 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 24px;
             padding: 30px;
             position: relative;
-            transition: 0.3s ease;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .card:hover {
             border-color: rgba(100, 255, 218, 0.3);
             background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
         }
 
         .section-title {
@@ -137,7 +170,7 @@
             color: var(--accent);
         }
 
-        /* --- Timeline (The Journey) --- */
+        /* --- Timeline --- */
         .timeline {
             position: relative;
             padding-left: 20px;
@@ -172,6 +205,7 @@
             font-weight: 700;
             font-size: 1rem;
             margin: 4px 0;
+            color: #fff;
         }
 
         .timeline-desc {
@@ -180,20 +214,7 @@
             line-height: 1.4;
         }
 
-        /* --- Stack Groups --- */
-        .stack-group {
-            margin-bottom: 20px;
-        }
-
-        .stack-group h4 {
-            font-family: var(--font-code);
-            font-size: 0.7rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            opacity: 0.7;
-        }
-
+        /* --- Tags --- */
         .tags {
             display: flex;
             flex-wrap: wrap;
@@ -243,7 +264,7 @@
         .project-link {
             font-size: 1.2rem;
             color: var(--text-muted);
-            transition: 0.2s;
+            transition: 0.3s;
         }
 
         .project-card:hover .project-link {
@@ -264,31 +285,44 @@
         /* --- Dock --- */
         .dock {
             position: fixed;
-            bottom: 25px;
+            bottom: calc(25px + env(safe-area-inset-bottom));
             left: 50%;
             transform: translateX(-50%);
             background: rgba(21, 22, 28, 0.8);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 100px;
             display: flex;
             gap: 20px;
             z-index: 1000;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .dock-item {
             color: var(--text-muted);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             transition: 0.3s;
         }
 
         .dock-item:hover {
             color: var(--accent);
-            transform: translateY(-3px);
+            transform: translateY(-4px);
         }
 
-        /* --- Mobile Optimization --- */
+        /* --- Animations --- */
+        .scroll-hidden {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         @media (max-width: 850px) {
 
             .bento-grid,
@@ -297,27 +331,17 @@
             }
 
             .container {
-                padding: 40px 20px;
+                padding: 40px 24px;
             }
 
             h1 {
                 font-size: 3rem;
             }
 
-            .card {
-                padding: 25px;
+            .dock {
+                width: 90%;
+                justify-content: space-around;
             }
-        }
-
-        .scroll-hidden {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: 0.6s ease-out;
-        }
-
-        .visible {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
@@ -328,12 +352,17 @@
 
     <main class="container">
         <header class="scroll-hidden">
-            <div class="status-badge" onclick="triggerConfetti()">
-                <i class="ri-checkbox-circle-fill"></i> Available for Hire
+            <div class="hero-top-row">
+                <div class="status-badge" onclick="triggerConfetti()">
+                    <i class="ri-checkbox-circle-fill"></i> Available for Hire
+                </div>
+                <div class="time-badge">
+                    <i class="ri-map-pin-2-fill"></i> Almaty <span id="clock">00:00:00</span>
+                </div>
             </div>
             <h1>Евгений<br>Федорчук</h1>
             <p class="role">> Software Engineer</p>
-            <p class="tagline" style="margin-bottom: 60px;">
+            <p class="tagline">
                 Проектирую и создаю производительные SaaS-инструменты.
                 Инженер в <span style="color: #fff; font-weight: 600;">Association Concept VSJ</span> (Франция).
             </p>
@@ -359,28 +388,34 @@
                         <span class="timeline-date">2015 — 2024</span>
                         <h3 class="timeline-title">Professional Chef (Sous-Chef)</h3>
                         <p class="timeline-desc">Управление командами 15+ человек. Работа в условиях экстремального
-                            давления и строгих таймингов.</p>
+                            давления и дисциплины.</p>
                     </div>
                 </div>
             </section>
 
             <section class="card">
                 <h2 class="section-title"><i class="ri-stack-line"></i> Stack</h2>
-                <div class="stack-group">
-                    <h4>Core</h4>
-                    <div class="tags"><span>Go</span><span>TypeScript</span><span>Python</span></div>
-                </div>
-                <div class="stack-group">
-                    <h4>Frontend</h4>
-                    <div class="tags"><span>React</span><span>Next.js</span><span>Tailwind</span></div>
-                </div>
-                <div class="stack-group">
-                    <h4>Backend & Ops</h4>
-                    <div class="tags"><span>Node.js</span><span>Docker</span><span>Prisma</span><span>Nginx</span></div>
-                </div>
-                <div class="stack-group">
-                    <h4>Cloud</h4>
-                    <div class="tags"><span>Vercel</span><span>PostgreSQL</span><span>OpenAI API</span></div>
+                <div style="display:flex; flex-direction:column; gap:20px;">
+                    <div>
+                        <h4
+                            style="font-family:var(--font-code); font-size:0.7rem; color:var(--accent); text-transform:uppercase; margin-bottom:10px;">
+                            Core</h4>
+                        <div class="tags"><span>Go</span><span>TypeScript</span><span>Python</span></div>
+                    </div>
+                    <div>
+                        <h4
+                            style="font-family:var(--font-code); font-size:0.7rem; color:var(--accent); text-transform:uppercase; margin-bottom:10px;">
+                            Web</h4>
+                        <div class="tags"><span>Next.js</span><span>React</span><span>Tailwind</span><span>Prisma</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4
+                            style="font-family:var(--font-code); font-size:0.7rem; color:var(--accent); text-transform:uppercase; margin-bottom:10px;">
+                            Ops</h4>
+                        <div class="tags">
+                            <span>Docker</span><span>Nginx</span><span>Vercel</span><span>PostgreSQL</span></div>
+                    </div>
                 </div>
             </section>
         </div>
@@ -393,7 +428,7 @@
                 <div class="project-header">
                     <i class="ri-sparkling-fill project-icon" style="color: #FFD700;"></i>
                     <div style="display: flex; gap: 10px; align-items: center;">
-                        <span class="new-tag">NEW</span>
+                        <span class="new-tag">LIVE</span>
                         <i class="ri-arrow-right-up-line project-link"></i>
                     </div>
                 </div>
@@ -402,7 +437,7 @@
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
                         SaaS-платформа для маркетплейсов. Генерация SEO-карточек и калькулятор чистой прибыли.
                     </p>
-                    <div class="tags"><span>Next.js</span><span>OpenAI</span><span>Prisma</span></div>
+                    <div class="tags"><span>Next.js</span><span>OpenAI API</span><span>Prisma</span></div>
                 </div>
             </a>
 
@@ -420,33 +455,6 @@
                 </div>
             </a>
 
-            <a href="https://github.com/mordaHQ/entropy-bridge" class="card project-card" target="_blank">
-                <div class="project-header">
-                    <i class="ri-pulse-line project-icon"></i>
-                    <i class="ri-arrow-right-up-line project-link"></i>
-                </div>
-                <div class="project-body">
-                    <h3 style="margin: 0 0 10px 0; color: #fff;">Entropy Bridge</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
-                        Air-gap транспорт. Передача данных через аудиоволны с кастомной модуляцией.
-                    </p>
-                    <div class="tags"><span>Go</span><span>DSP</span><span>PortAudio</span></div>
-                </div>
-            </a>
-
-            <a href="https://github.com/mordaHQ/docker-inspector" class="card project-card" target="_blank">
-                <div class="project-header">
-                    <i class="ri-docker-fill project-icon"></i>
-                    <i class="ri-arrow-right-up-line project-link"></i>
-                </div>
-                <div class="project-body">
-                    <h3 style="margin: 0 0 10px 0; color: #fff;">Docker Inspector</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
-                        Глубокая инспекция контейнеров в реальном времени через Docker API.
-                    </p>
-                    <div class="tags"><span>Go</span><span>React</span><span>System Design</span></div>
-                </div>
-            </a>
         </div>
 
         <footer
@@ -465,8 +473,24 @@
     </nav>
 
     <script>
+        // Алматинское время
+        function updateTime() {
+            const now = new Date();
+            const timeOptions = {
+                timeZone: 'Asia/Almaty',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            document.getElementById('clock').textContent = now.toLocaleTimeString('ru-RU', timeOptions);
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Эффекты
         function triggerConfetti() {
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#64FFDA', '#ffffff'] });
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#64FFDA', '#ffffff'] });
         }
 
         function copyEmail() {
@@ -477,8 +501,10 @@
 
         const glow = document.getElementById('glow');
         document.addEventListener('mousemove', (e) => {
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
+            requestAnimationFrame(() => {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            });
         });
 
         const observer = new IntersectionObserver((entries) => {
