@@ -41,7 +41,6 @@
             padding-bottom: calc(100px + env(safe-area-inset-bottom));
         }
 
-        /* --- Effects --- */
         .grid-overlay {
             position: fixed;
             top: 0;
@@ -95,11 +94,17 @@
             gap: 8px;
             background: rgba(100, 255, 218, 0.1);
             color: var(--accent);
-            padding: 6px 14px;
+            padding: 6px 16px;
             border-radius: 100px;
             font-size: 0.75rem;
             font-family: var(--font-code);
             cursor: pointer;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .status-badge:active {
+            transform: scale(0.95);
         }
 
         .location-badge {
@@ -123,7 +128,7 @@
             line-height: 1.6;
         }
 
-        /* --- Bento & Cards --- */
+        /* Bento & Cards */
         .bento-wrapper {
             display: grid;
             grid-template-columns: 1.6fr 1fr;
@@ -145,8 +150,7 @@
             position: relative;
             overflow: hidden;
             display: block;
-            transition: transform 0.1s ease-out, border-color 0.3s ease;
-            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease;
         }
 
         .card:hover {
@@ -169,7 +173,7 @@
         }
 
         .icon-main {
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: #fff;
         }
 
@@ -248,27 +252,18 @@
             text-transform: uppercase;
         }
 
-        /* Stack Tags */
-        .stack-group h3 {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 12px;
-            font-family: var(--font-code);
-            opacity: 0.8;
-        }
-
+        /* Tags */
         .tags-cloud {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 24px;
+            margin-top: 10px;
         }
 
         .tags-cloud span {
             background: rgba(255, 255, 255, 0.05);
             color: #E2E8F0;
-            padding: 6px 10px;
+            padding: 6px 12px;
             border-radius: 8px;
             font-size: 0.75rem;
             font-family: var(--font-code);
@@ -278,18 +273,17 @@
         /* Dock */
         .dock-menu {
             position: fixed;
-            bottom: calc(30px + env(safe-area-inset-bottom));
+            bottom: calc(24px + env(safe-area-inset-bottom));
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(21, 22, 28, 0.85);
+            background: rgba(21, 22, 28, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 12px 24px;
             border-radius: 100px;
             display: flex;
-            align-items: center;
-            gap: 20px;
+            gap: 24px;
             z-index: 1000;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
@@ -299,6 +293,10 @@
             font-size: 1.5rem;
             transition: 0.3s;
             display: flex;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
         }
 
         .dock-item:hover {
@@ -306,7 +304,17 @@
             transform: translateY(-4px);
         }
 
-        /* Mobile */
+        .scroll-hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.8s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         @media (max-width: 850px) {
 
             .bento-wrapper,
@@ -323,24 +331,14 @@
             }
 
             .dock-menu {
-                width: 90%;
+                width: 85%;
                 justify-content: space-around;
+                padding: 10px 20px;
             }
 
             .card {
                 transform: none !important;
             }
-        }
-
-        .scroll-hidden {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: 0.8s ease-out;
-        }
-
-        .visible {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
@@ -350,7 +348,7 @@
     <div class="cursor-glow" id="glow"></div>
 
     <main class="container">
-        <header class="scroll-hidden">
+        <header class="hero scroll-hidden">
             <div class="hero-top-row">
                 <div class="status-badge" onclick="triggerConfetti()">
                     <span
@@ -374,33 +372,24 @@
         <div class="bento-wrapper scroll-hidden">
             <section class="card">
                 <div class="card-content">
-                    <h2 class="section-title">My Journey</h2>
+                    <h2 class="section-title">Experience</h2>
                     <div class="timeline">
                         <div class="timeline-item active">
                             <div class="timeline-icon"><i class="ri-robot-2-line"></i></div>
                             <div class="timeline-content">
-                                <span class="date">Now</span>
+                                <span class="date">Current</span>
                                 <h3>Fullstack & AI Engineer</h3>
                                 <p style="font-size:0.85rem; color:var(--text-muted)">Разработка SaaS-экосистем и
                                     внедрение LLM (K-Assistant AI).</p>
                             </div>
                         </div>
                         <div class="timeline-item">
-                            <div class="timeline-icon"><i class="ri-global-line"></i></div>
-                            <div class="timeline-content">
-                                <span class="date">2024</span>
-                                <h3>IT Specialist</h3>
-                                <p style="font-size:0.85rem; color:var(--text-muted)">Association Concept VSJ (France).
-                                    Инфраструктура и консалтинг.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
                             <div class="timeline-icon"><i class="ri-restaurant-line"></i></div>
                             <div class="timeline-content">
                                 <span class="date">2015 — 2024</span>
-                                <h3>Professional Chef</h3>
-                                <p style="font-size:0.85rem; color:var(--text-muted)">Путь до Су-шефа. Управление
-                                    командами и дисциплина.</p>
+                                <h3>Professional Chef (Sous-Chef)</h3>
+                                <p style="font-size:0.85rem; color:var(--text-muted)">8 лет управления командами и
+                                    сложными процессами. Системный подход.</p>
                             </div>
                         </div>
                     </div>
@@ -409,22 +398,17 @@
 
             <section class="card">
                 <div class="card-content">
-                    <h2 class="section-title">Tech Stack</h2>
-                    <div class="stack-group">
-                        <h3>Languages</h3>
-                        <div class="tags-cloud">
-                            <span>Go</span><span>TypeScript</span><span>Python</span><span>Node.js</span></div>
-                        <h3>Frontend</h3>
-                        <div class="tags-cloud"><span>Next.js</span><span>React</span><span>Tailwind</span></div>
-                        <h3>Backend & Ops</h3>
-                        <div class="tags-cloud">
-                            <span>Prisma</span><span>PostgreSQL</span><span>Docker</span><span>Nginx</span></div>
+                    <h2 class="section-title">Stack</h2>
+                    <div class="tags-cloud">
+                        <span>Go</span><span>TypeScript</span><span>Python</span><span>Next.js</span>
+                        <span>React</span><span>Docker</span><span>Prisma</span><span>PostgreSQL</span>
+                        <span>OpenAI API</span><span>Redis</span><span>Tailwind</span>
                     </div>
                 </div>
             </section>
         </div>
 
-        <h2 class="section-title scroll-hidden" style="margin-bottom: 30px;">Featured Work</h2>
+        <h2 class="section-title scroll-hidden" style="margin-bottom: 30px;">Selected Work</h2>
         <div class="projects-grid scroll-hidden">
 
             <a href="https://kaspi-ai-assistant.vercel.app" class="card" target="_blank">
@@ -435,7 +419,7 @@
                             style="background:var(--accent); color:#000; font-size:0.6rem; font-weight:900; padding:2px 8px; border-radius:4px;">LIVE</span>
                     </div>
                     <h3 style="color:#fff; margin-bottom:10px">K-Assistant AI</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px;">
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
                         SaaS-платформа для маркетплейсов. Автогенерация SEO-контента через OpenAI и аналитика прибыли.
                     </p>
                     <div class="tags-cloud"><span>Next.js</span><span>OpenAI</span><span>Prisma</span></div>
@@ -449,8 +433,8 @@
                         <i class="ri-arrow-right-up-line arrow"></i>
                     </div>
                     <h3 style="color:#fff; margin-bottom:10px">AI Phish Tank</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px;">
-                        Инструмент Red Teaming. Генерация сценариев атак с использованием локальных LLM (Llama 3).
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+                        OSINT-инструмент для анализа угроз. Генерация сценариев атак через локальные LLM (Llama 3).
                     </p>
                     <div class="tags-cloud"><span>Go</span><span>Llama 3</span><span>Docker</span></div>
                 </div>
@@ -463,10 +447,10 @@
                         <i class="ri-arrow-right-up-line arrow"></i>
                     </div>
                     <h3 style="color:#fff; margin-bottom:10px">Entropy Bridge</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px;">
-                        Air-gap транспорт. Передача зашифрованных данных через аудиоволны на языке Go.
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+                        Air-gap транспорт. Передача зашифрованных данных через аудиоволны (DSP модуляция).
                     </p>
-                    <div class="tags-cloud"><span>Go</span><span>DSP</span><span>PortAudio</span></div>
+                    <div class="tags-cloud"><span>Go</span><span>DSP</span><span>Audio</span></div>
                 </div>
             </a>
 
@@ -477,10 +461,10 @@
                         <i class="ri-arrow-right-up-line arrow"></i>
                     </div>
                     <h3 style="color:#fff; margin-bottom:10px">Docker Inspector</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px;">
-                        Система глубокого мониторинга и отладки контейнеров в реальном времени.
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+                        Система мониторинга и отладки контейнеров в реальном времени через Docker API.
                     </p>
-                    <div class="tags-cloud"><span>Go</span><span>Docker API</span><span>React</span></div>
+                    <div class="tags-cloud"><span>Go</span><span>React</span><span>API</span></div>
                 </div>
             </a>
         </div>
@@ -491,47 +475,87 @@
                 class="ri-home-5-line"></i></a>
         <a href="https://github.com/mordaHQ" target="_blank" class="dock-item"><i class="ri-github-fill"></i></a>
         <a href="https://t.me/lxvsshall" target="_blank" class="dock-item"><i class="ri-telegram-fill"></i></a>
-        <button onclick="copyEmail()" class="dock-item" style="background:none; border:none; cursor:pointer;"><i
-                class="ri-mail-send-line"></i></button>
+        <button onclick="copyEmail()" class="dock-item"><i class="ri-mail-send-line"></i></button>
     </nav>
 
     <script>
+        // Время Almaty
         function updateTime() {
             const now = new Date();
             const timeStr = now.toLocaleTimeString('ru-RU', { timeZone: 'Asia/Almaty', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-            document.getElementById('clock').textContent = timeStr;
+            if (document.getElementById('clock')) document.getElementById('clock').textContent = timeStr;
         }
         setInterval(updateTime, 1000); updateTime();
 
-        const words = ["Software Engineer", "AI Integrator", "Frontend Developer"];
+        // Печатная машинка
+        const words = ["Software Engineer", "Fullstack Developer", "AI Integrator"];
         let i = 0, j = 0, isDeleting = false;
         function type() {
             const current = words[i];
-            document.getElementById("typewriter").textContent = isDeleting ? current.substring(0, j--) : current.substring(0, j++);
+            const typewriter = document.getElementById("typewriter");
+            if (!typewriter) return;
+            typewriter.textContent = isDeleting ? current.substring(0, j--) : current.substring(0, j++);
             if (!isDeleting && j > current.length) { isDeleting = true; setTimeout(type, 2000); }
             else if (isDeleting && j === 0) { isDeleting = false; i = (i + 1) % words.length; setTimeout(type, 500); }
             else { setTimeout(type, isDeleting ? 60 : 150); }
         }
         type();
 
+        // 3D Tilt (только десктоп)
         if (window.innerWidth > 900) {
             document.querySelectorAll('.card').forEach(card => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
-                    const rotateX = ((e.clientY - rect.top - rect.height / 2) / rect.height / 2) * -10;
-                    const rotateY = ((e.clientX - rect.left - rect.width / 2) / rect.width / 2) * 10;
+                    const rotateX = ((e.clientY - rect.top - rect.height / 2) / rect.height / 2) * -8;
+                    const rotateY = ((e.clientX - rect.left - rect.width / 2) / rect.width / 2) * 8;
                     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
                 });
                 card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)'; });
             });
         }
 
-        function triggerConfetti() { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#64FFDA', '#ffffff'] }); }
-        function copyEmail() { navigator.clipboard.writeText("devmorda@gmail.com"); triggerConfetti(); alert("Email скопирован!"); }
+        // Конфетти и Копирование (Финальная стабильная версия)
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.7 },
+                    colors: ['#64FFDA', '#ffffff', '#0B0C10'],
+                    zIndex: 9999
+                });
+            }
+        }
 
+        async function copyEmail() {
+            const email = "devmorda@gmail.com";
+            try {
+                await navigator.clipboard.writeText(email);
+                triggerConfetti();
+                alert("Почта скопирована: " + email);
+            } catch (err) {
+                // Фоллбэк если Clipboard API не поддерживается
+                const textArea = document.createElement("textarea");
+                textArea.value = email;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                triggerConfetti();
+                alert("Почта скопирована!");
+            }
+        }
+
+        // Свечение мыши
         const glow = document.getElementById('glow');
-        document.addEventListener('mousemove', (e) => { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; });
+        document.addEventListener('mousemove', (e) => {
+            if (glow) {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            }
+        });
 
+        // Плавное появление
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
