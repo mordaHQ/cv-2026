@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#0B0C10">
-    <meta name="description" content="Евгений Федорчук - Software Engineer. SaaS, AI и системная архитектура.">
+    <meta name="description" content="Евгений Федорчук - Fullstack Engineer & IT Specialist.">
 
     <title>Евгений Федорчук | Engineering Portfolio</title>
 
@@ -30,7 +30,7 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
             text-decoration: none !important;
-            /* Убираем все подчеркивания */
+            /* Убираем подчеркивания везде */
         }
 
         body {
@@ -38,34 +38,45 @@
             color: var(--text-main);
             font-family: var(--font-main);
             margin: 0;
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-            /* Учет безопасных зон для мобилок */
-            padding-bottom: calc(120px + env(safe-area-inset-bottom));
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: calc(100px + env(safe-area-inset-bottom));
         }
 
-        /* --- Background Effects --- */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.04;
+        }
+
         .grid-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             z-index: -2;
-            mask-image: radial-gradient(circle at center, black, transparent 85%);
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
         }
 
         .cursor-glow {
             position: fixed;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(100, 255, 218, 0.05), transparent 70%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.08), transparent 70%);
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: -1;
+            transition: width 0.1s, height 0.1s;
         }
 
         .container {
@@ -74,11 +85,10 @@
             padding: 60px 24px;
         }
 
-        /* --- Hero Section --- */
         h1 {
             font-size: clamp(2.5rem, 10vw, 4.5rem);
             line-height: 1.1;
-            margin: 0 0 20px 0;
+            margin: 0 0 24px 0;
             letter-spacing: -0.04em;
             background: linear-gradient(to right, #fff, #94a3b8);
             -webkit-background-clip: text;
@@ -89,221 +99,234 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         .status-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(100, 255, 218, 0.08);
+            background: rgba(100, 255, 218, 0.1);
             color: var(--accent);
             padding: 6px 14px;
             border-radius: 100px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             border: 1px solid rgba(100, 255, 218, 0.2);
             font-family: var(--font-code);
             cursor: pointer;
         }
 
-        .time-badge {
-            color: var(--text-muted);
-            font-family: var(--font-code);
-            font-size: 0.8rem;
-            display: flex;
+        .location-badge {
+            display: inline-flex;
             align-items: center;
             gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: var(--font-code);
+            padding: 6px 14px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .time-badge span {
+        .clock-text {
             color: #fff;
+            font-variant-numeric: tabular-nums;
         }
 
         .role {
-            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
             color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 16px;
             font-family: var(--font-code);
-            margin-bottom: 15px;
         }
 
         .tagline {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
             max-width: 600px;
             line-height: 1.6;
         }
 
-        /* --- Bento Grid --- */
-        .bento-grid {
+        /* Bento Grid */
+        .bento-wrapper {
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 20px;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 24px;
             margin-bottom: 60px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 80px;
         }
 
         .card {
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 24px;
-            padding: 30px;
             position: relative;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            overflow: hidden;
+            display: block;
+            transition: transform 0.1s ease-out, border-color 0.3s ease;
+            transform-style: preserve-3d;
         }
 
         .card:hover {
             border-color: rgba(100, 255, 218, 0.3);
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .card-content {
+            padding: 32px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .icon-main {
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .arrow {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .card:hover .arrow {
+            color: var(--accent);
+            transform: translate(4px, -4px);
         }
 
         .section-title {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            margin-bottom: 24px;
+            color: #fff;
         }
 
-        .section-title i {
-            color: var(--accent);
-        }
-
-        /* --- Timeline --- */
+        /* Timeline */
         .timeline {
             position: relative;
-            padding-left: 20px;
-            border-left: 2px solid rgba(255, 255, 255, 0.05);
+            padding-left: 12px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 27px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .timeline-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 32px;
             position: relative;
-            margin-bottom: 30px;
+            z-index: 1;
         }
 
-        .timeline-item::before {
-            content: "";
-            position: absolute;
-            left: -27px;
-            top: 5px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--bg);
-            border: 2px solid var(--accent);
+        .timeline-icon {
+            width: 54px;
+            height: 54px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            flex-shrink: 0;
         }
 
-        .timeline-date {
-            font-family: var(--font-code);
-            font-size: 0.75rem;
+        .timeline-item.active .timeline-icon {
+            border-color: var(--accent);
             color: var(--accent);
-            text-transform: uppercase;
+            background: rgba(100, 255, 218, 0.1);
         }
 
-        .timeline-title {
-            font-weight: 700;
+        .timeline-content h3 {
             font-size: 1rem;
             margin: 4px 0;
             color: #fff;
         }
 
-        .timeline-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.4;
+        .timeline-content .date {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-family: var(--font-code);
+            text-transform: uppercase;
         }
 
-        /* --- Tags --- */
-        .tags {
+        /* Stack */
+        .stack-group h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+            font-family: var(--font-code);
+            opacity: 0.8;
+        }
+
+        .tags-cloud {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            margin-bottom: 24px;
         }
 
-        .tags span {
+        .tags-cloud span {
             background: rgba(255, 255, 255, 0.05);
+            color: #E2E8F0;
+            padding: 6px 12px;
+            border-radius: 8px;
             font-size: 0.75rem;
-            padding: 4px 10px;
-            border-radius: 6px;
+            font-family: var(--font-code);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            font-family: var(--font-code);
         }
 
-        /* --- Projects --- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .project-card {
-            padding: 0;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-header {
-            padding: 30px 30px 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .project-body {
-            padding: 0 30px 30px;
-            flex-grow: 1;
-        }
-
-        .project-icon {
-            font-size: 2rem;
-            color: #fff;
-        }
-
-        .project-link {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            transition: 0.3s;
-        }
-
-        .project-card:hover .project-link {
-            color: var(--accent);
-            transform: translate(3px, -3px);
-        }
-
-        .new-tag {
-            background: var(--accent);
-            color: #000;
-            font-size: 0.6rem;
-            font-weight: 900;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-family: var(--font-code);
-        }
-
-        /* --- Dock --- */
-        .dock {
+        /* Dock Menu */
+        .dock-menu {
             position: fixed;
-            bottom: calc(25px + env(safe-area-inset-bottom));
+            bottom: calc(30px + env(safe-area-inset-bottom));
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(21, 22, 28, 0.8);
+            background: rgba(21, 22, 28, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 12px 24px;
             border-radius: 100px;
             display: flex;
+            align-items: center;
             gap: 20px;
             z-index: 1000;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .dock-item {
-            color: var(--text-muted);
+            color: #94A3B8;
             font-size: 1.5rem;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
         }
 
         .dock-item:hover {
@@ -311,10 +334,9 @@
             transform: translateY(-4px);
         }
 
-        /* --- Animations --- */
         .scroll-hidden {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(20px);
             transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
@@ -325,23 +347,30 @@
 
         @media (max-width: 850px) {
 
-            .bento-grid,
+            .bento-wrapper,
             .projects-grid {
                 grid-template-columns: 1fr;
             }
 
             .container {
-                padding: 40px 24px;
+                padding: 40px 20px;
             }
 
             h1 {
-                font-size: 3rem;
+                font-size: 3.2rem;
             }
 
-            .dock {
+            .dock-menu {
                 width: 90%;
                 justify-content: space-around;
+                padding: 10px;
             }
+
+            .card {
+                transform: none !important;
+            }
+
+            /* Отключаем 3д на мобилках */
         }
     </style>
 </head>
@@ -351,166 +380,185 @@
     <div class="cursor-glow" id="glow"></div>
 
     <main class="container">
-        <header class="scroll-hidden">
+        <header class="hero scroll-hidden">
             <div class="hero-top-row">
                 <div class="status-badge" onclick="triggerConfetti()">
-                    <i class="ri-checkbox-circle-fill"></i> Available for Hire
+                    <span
+                        style="width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent);"></span>
+                    Available for projects
                 </div>
-                <div class="time-badge">
-                    <i class="ri-map-pin-2-fill"></i> Almaty <span id="clock">00:00:00</span>
+                <div class="location-badge">
+                    <i class="ri-map-pin-line"></i> Almaty <span id="clock" class="clock-text">00:00:00</span>
                 </div>
             </div>
+
             <h1>Евгений<br>Федорчук</h1>
-            <p class="role">> Software Engineer</p>
+            <p class="role">> <span id="typewriter"></span><span class="cursor">|</span></p>
             <p class="tagline">
-                Проектирую и создаю производительные SaaS-инструменты.
-                Инженер в <span style="color: #fff; font-weight: 600;">Association Concept VSJ</span> (Франция).
+                Создаю производительные интерфейсы и инженерные инструменты.
+                Специалист в <span style="color: var(--accent); font-weight: 500;">Association Concept VSJ</span>.
             </p>
         </header>
 
-        <div class="bento-grid scroll-hidden">
+        <div class="bento-wrapper scroll-hidden">
             <section class="card">
-                <h2 class="section-title"><i class="ri-history-line"></i> Experience</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <span class="timeline-date">Now</span>
-                        <h3 class="timeline-title">IT Specialist</h3>
-                        <p class="timeline-desc">Association Concept VSJ (France). Поддержка систем, DevOps и
-                            технический консалтинг.</p>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-date">2024</span>
-                        <h3 class="timeline-title">Software Engineering</h3>
-                        <p class="timeline-desc">Переход в разработку. Фокус на Go, React и архитектуру облачных
-                            решений.</p>
-                    </div>
-                    <div class="timeline-item">
-                        <span class="timeline-date">2015 — 2024</span>
-                        <h3 class="timeline-title">Professional Chef (Sous-Chef)</h3>
-                        <p class="timeline-desc">Управление командами 15+ человек. Работа в условиях экстремального
-                            давления и дисциплины.</p>
+                <div class="card-content">
+                    <h2 class="section-title">My Journey</h2>
+                    <div class="timeline">
+                        <div class="timeline-item active">
+                            <div class="timeline-icon"><i class="ri-robot-2-line"></i></div>
+                            <div class="timeline-content">
+                                <span class="date">Current</span>
+                                <h3>Fullstack & AI Development</h3>
+                                <p>Разработка SaaS-экосистем и внедрение ИИ-решений (K-Assistant AI).</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i class="ri-global-line"></i></div>
+                            <div class="timeline-content">
+                                <span class="date">2024</span>
+                                <h3>IT Specialist</h3>
+                                <p>Association Concept VSJ (France). Поддержка инфраструктуры и консалтинг.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i class="ri-restaurant-line"></i></div>
+                            <div class="timeline-content">
+                                <span class="date">2015 — 2024</span>
+                                <h3>Professional Chef</h3>
+                                <p>Управление командами 15+ человек в условиях экстремального давления.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <section class="card">
-                <h2 class="section-title"><i class="ri-stack-line"></i> Stack</h2>
-                <div style="display:flex; flex-direction:column; gap:20px;">
-                    <div>
-                        <h4
-                            style="font-family:var(--font-code); font-size:0.7rem; color:var(--accent); text-transform:uppercase; margin-bottom:10px;">
-                            Core</h4>
-                        <div class="tags"><span>Go</span><span>TypeScript</span><span>Python</span></div>
-                    </div>
-                    <div>
-                        <h4
-                            style="font-family:var(--font-code); font-size:0.7rem; color:var(--accent); text-transform:uppercase; margin-bottom:10px;">
-                            Web</h4>
-                        <div class="tags"><span>Next.js</span><span>React</span><span>Tailwind</span><span>Prisma</span>
-                        </div>
-                    </div>
-                    <div>
-                        <h4
-                            style="font-family:var(--font-code); font-size:0.7rem; color:var(--accent); text-transform:uppercase; margin-bottom:10px;">
-                            Ops</h4>
-                        <div class="tags">
-                            <span>Docker</span><span>Nginx</span><span>Vercel</span><span>PostgreSQL</span></div>
+                <div class="card-content">
+                    <h2 class="section-title">Tech Stack</h2>
+                    <div class="stack-group">
+                        <h3>Core</h3>
+                        <div class="tags-cloud"><span>Go</span><span>TypeScript</span><span>Node.js</span></div>
+                        <h3>Frontend</h3>
+                        <div class="tags-cloud"><span>React</span><span>Next.js</span><span>Tailwind</span></div>
+                        <h3>Backend</h3>
+                        <div class="tags-cloud"><span>Prisma</span><span>PostgreSQL</span><span>Docker</span></div>
                     </div>
                 </div>
             </section>
         </div>
 
-        <h2 class="section-title scroll-hidden" style="margin-bottom: 30px;"><i class="ri-fire-line"></i> Selected Work
-        </h2>
+        <h2 class="section-title scroll-hidden" style="margin-bottom: 32px;">Featured Work</h2>
         <div class="projects-grid scroll-hidden">
 
-            <a href="https://kaspi-ai-assistant.vercel.app" class="card project-card" target="_blank">
-                <div class="project-header">
-                    <i class="ri-sparkling-fill project-icon" style="color: #FFD700;"></i>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <span class="new-tag">LIVE</span>
-                        <i class="ri-arrow-right-up-line project-link"></i>
+            <a href="https://kaspi-ai-assistant.vercel.app" class="card" target="_blank">
+                <div class="card-content">
+                    <div class="card-top">
+                        <i class="ri-sparkling-fill icon-main" style="color: #FFD700;"></i>
+                        <span
+                            style="background:var(--accent); color:#000; font-size:0.6rem; font-weight:900; padding:2px 8px; border-radius:4px;">LIVE</span>
                     </div>
-                </div>
-                <div class="project-body">
-                    <h3 style="margin: 0 0 10px 0; color: #fff;">K-Assistant AI</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
-                        SaaS-платформа для маркетплейсов. Генерация SEO-карточек и калькулятор чистой прибыли.
+                    <h3>K-Assistant AI</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px;">
+                        SaaS-платформа для маркетплейсов. Интеллектуальная генерация SEO-карточек и калькулятор
+                        юнит-экономики.
                     </p>
-                    <div class="tags"><span>Next.js</span><span>OpenAI API</span><span>Prisma</span></div>
+                    <div class="tags-cloud"><span>Next.js</span><span>OpenAI API</span><span>Prisma</span></div>
                 </div>
             </a>
 
-            <a href="https://github.com/mordaHQ/ai-phish-tank" class="card project-card" target="_blank">
-                <div class="project-header">
-                    <i class="ri-spy-line project-icon"></i>
-                    <i class="ri-arrow-right-up-line project-link"></i>
-                </div>
-                <div class="project-body">
-                    <h3 style="margin: 0 0 10px 0; color: #fff;">AI Phish Tank</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
-                        Инструмент Red Teaming. Генерация сценариев через локальные LLM (Llama 3).
+            <a href="https://github.com/mordaHQ/ai-phish-tank" class="card" target="_blank">
+                <div class="card-content">
+                    <div class="card-top">
+                        <i class="ri-spy-fill icon-main"></i>
+                        <i class="ri-arrow-right-up-line arrow"></i>
+                    </div>
+                    <h3>AI Phish Tank</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px;">
+                        Инструмент Red Teaming. Генерация векторов атак с помощью локальной LLM (Llama 3).
                     </p>
-                    <div class="tags"><span>Go</span><span>Llama 3</span><span>Docker</span></div>
+                    <div class="tags-cloud"><span>Go</span><span>Llama 3</span><span>Docker</span></div>
                 </div>
             </a>
-
         </div>
 
         <footer
-            style="margin-top: 80px; text-align: center; color: rgba(255,255,255,0.2); font-size: 0.8rem; font-family: var(--font-code);">
+            style="margin-top: 80px; text-align: center; color: rgba(255,255,255,0.15); font-size: 0.75rem; font-family: var(--font-code);">
             © 2026 E. Fedorchuk • Engineering quality into every line.
         </footer>
     </main>
 
-    <nav class="dock">
+    <nav class="dock-menu">
         <a href="#" class="dock-item" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;"><i
                 class="ri-home-5-line"></i></a>
         <a href="https://github.com/mordaHQ" target="_blank" class="dock-item"><i class="ri-github-fill"></i></a>
         <a href="https://t.me/lxvsshall" target="_blank" class="dock-item"><i class="ri-telegram-fill"></i></a>
-        <button onclick="copyEmail()" class="dock-item"
-            style="background:none; border:none; padding:0; cursor:pointer;"><i class="ri-mail-send-line"></i></button>
+        <button onclick="copyEmail()" class="dock-item" style="background:none; border:none; cursor:pointer;"><i
+                class="ri-mail-send-line"></i></button>
     </nav>
 
     <script>
-        // Алматинское время
+        // Обновление времени Almaty
         function updateTime() {
             const now = new Date();
-            const timeOptions = {
-                timeZone: 'Asia/Almaty',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            };
-            document.getElementById('clock').textContent = now.toLocaleTimeString('ru-RU', timeOptions);
+            const timeStr = now.toLocaleTimeString('ru-RU', { timeZone: 'Asia/Almaty', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('clock').textContent = timeStr;
         }
-        setInterval(updateTime, 1000);
-        updateTime();
+        setInterval(updateTime, 1000); updateTime();
 
-        // Эффекты
+        // Печатающийся текст
+        const words = ["Software Engineer", "Frontend Developer", "Tool Creator"];
+        let i = 0, j = 0, isDeleting = false;
+        function type() {
+            const current = words[i];
+            document.getElementById("typewriter").textContent = isDeleting ? current.substring(0, j--) : current.substring(0, j++);
+            if (!isDeleting && j > current.length) { isDeleting = true; setTimeout(type, 2000); }
+            else if (isDeleting && j === 0) { isDeleting = false; i = (i + 1) % words.length; setTimeout(type, 500); }
+            else { setTimeout(type, isDeleting ? 50 : 150); }
+        }
+        type();
+
+        // 3D Tilt Эффект
+        if (window.innerWidth > 900) {
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -5;
+                    const rotateY = ((x - centerX) / centerX) * 5;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    card.style.setProperty('--x', `${x}px`);
+                    card.style.setProperty('--y', `${y}px`);
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                });
+            });
+        }
+
+        // Конфетти и Копирование
         function triggerConfetti() {
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#64FFDA', '#ffffff'] });
         }
-
         function copyEmail() {
             navigator.clipboard.writeText("devmorda@gmail.com");
             triggerConfetti();
             alert("Email скопирован!");
         }
 
+        // Glow эффект мыши
         const glow = document.getElementById('glow');
         document.addEventListener('mousemove', (e) => {
-            requestAnimationFrame(() => {
-                glow.style.left = e.clientX + 'px';
-                glow.style.top = e.clientY + 'px';
-            });
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
         });
 
+        // Плавное появление при скролле
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.scroll-hidden').forEach(el => observer.observe(el));
     </script>
