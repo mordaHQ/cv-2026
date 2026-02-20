@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#0B0C10">
-    <meta name="description" content="Евгений Федорчук - Fullstack Engineer & IT Specialist.">
+    <meta name="description"
+        content="Евгений Федорчук - Fullstack Engineer & IT Specialist. SaaS, AI и системная архитектура.">
 
     <title>Евгений Федорчук | Engineering Portfolio</title>
 
@@ -30,7 +31,8 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
             text-decoration: none !important;
-            /* Убираем подчеркивания везде */
+            /* Убираем все подчеркивания и фиолетовый цвет ссылок */
+            color: inherit;
         }
 
         body {
@@ -40,7 +42,7 @@
             margin: 0;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            padding-bottom: calc(100px + env(safe-area-inset-bottom));
+            padding-bottom: calc(120px + env(safe-area-inset-bottom));
         }
 
         body::after {
@@ -76,17 +78,16 @@
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: -1;
-            transition: width 0.1s, height 0.1s;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 940px;
             margin: 0 auto;
             padding: 60px 24px;
         }
 
         h1 {
-            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            font-size: clamp(2.8rem, 12vw, 4.5rem);
             line-height: 1.1;
             margin: 0 0 24px 0;
             letter-spacing: -0.04em;
@@ -99,7 +100,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 30px;
             flex-wrap: wrap;
             gap: 16px;
         }
@@ -112,7 +113,7 @@
             color: var(--accent);
             padding: 6px 14px;
             border-radius: 100px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             border: 1px solid rgba(100, 255, 218, 0.2);
             font-family: var(--font-code);
             cursor: pointer;
@@ -125,15 +126,6 @@
             color: var(--text-muted);
             font-size: 0.85rem;
             font-family: var(--font-code);
-            padding: 6px 14px;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .clock-text {
-            color: #fff;
-            font-variant-numeric: tabular-nums;
         }
 
         .role {
@@ -161,7 +153,7 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 24px;
             margin-bottom: 80px;
         }
@@ -184,31 +176,9 @@
 
         .card-content {
             padding: 32px;
-            height: 100%;
             display: flex;
             flex-direction: column;
-        }
-
-        .card-top {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
-
-        .icon-main {
-            font-size: 2rem;
-            color: #fff;
-        }
-
-        .arrow {
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            transition: 0.3s;
-        }
-
-        .card:hover .arrow {
-            color: var(--accent);
-            transform: translate(4px, -4px);
+            height: 100%;
         }
 
         .section-title {
@@ -216,9 +186,10 @@
             font-weight: 700;
             margin-bottom: 24px;
             color: #fff;
+            opacity: 0.9;
         }
 
-        /* Timeline */
+        /* Journey Timeline */
         .timeline {
             position: relative;
             padding-left: 12px;
@@ -275,7 +246,7 @@
             text-transform: uppercase;
         }
 
-        /* Stack */
+        /* Stack Tags */
         .stack-group h3 {
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -295,11 +266,45 @@
         .tags-cloud span {
             background: rgba(255, 255, 255, 0.05);
             color: #E2E8F0;
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 8px;
             font-size: 0.75rem;
             font-family: var(--font-code);
             border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Projects UI */
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .icon-main {
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .arrow {
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            transition: 0.3s;
+        }
+
+        .card:hover .arrow {
+            color: var(--accent);
+            transform: translate(4px, -4px);
+        }
+
+        .live-badge {
+            background: var(--accent);
+            color: #000;
+            font-size: 0.6rem;
+            font-weight: 900;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-code);
         }
 
         /* Dock Menu */
@@ -326,7 +331,7 @@
             font-size: 1.5rem;
             transition: 0.3s;
             display: flex;
-            align-items: center;
+            cursor: pointer;
         }
 
         .dock-item:hover {
@@ -369,8 +374,6 @@
             .card {
                 transform: none !important;
             }
-
-            /* Отключаем 3д на мобилках */
         }
     </style>
 </head>
@@ -388,15 +391,19 @@
                     Available for projects
                 </div>
                 <div class="location-badge">
-                    <i class="ri-map-pin-line"></i> Almaty <span id="clock" class="clock-text">00:00:00</span>
+                    <i class="ri-map-pin-line"></i> Almaty <span id="clock"
+                        style="color:#fff; margin-left:8px">00:00:00</span>
                 </div>
             </div>
 
             <h1>Евгений<br>Федорчук</h1>
-            <p class="role">> <span id="typewriter"></span><span class="cursor">|</span></p>
+            <p class="role">> <span id="typewriter"></span><span
+                    style="border-right: 2px solid var(--accent); margin-left: 4px; animation: blink 1s infinite;"></span>
+            </p>
             <p class="tagline">
                 Создаю производительные интерфейсы и инженерные инструменты.
-                Специалист в <span style="color: var(--accent); font-weight: 500;">Association Concept VSJ</span>.
+                Fullstack Engineer в <span style="color: var(--accent); font-weight: 500;">Association Concept
+                    VSJ</span>.
             </p>
         </header>
 
@@ -408,9 +415,10 @@
                         <div class="timeline-item active">
                             <div class="timeline-icon"><i class="ri-robot-2-line"></i></div>
                             <div class="timeline-content">
-                                <span class="date">Current</span>
+                                <span class="date">Now</span>
                                 <h3>Fullstack & AI Development</h3>
-                                <p>Разработка SaaS-экосистем и внедрение ИИ-решений (K-Assistant AI).</p>
+                                <p style="font-size:0.85rem; color:var(--text-muted)">Разработка SaaS-экосистем и
+                                    интеграция ИИ-решений (K-Assistant AI).</p>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -418,7 +426,8 @@
                             <div class="timeline-content">
                                 <span class="date">2024</span>
                                 <h3>IT Specialist</h3>
-                                <p>Association Concept VSJ (France). Поддержка инфраструктуры и консалтинг.</p>
+                                <p style="font-size:0.85rem; color:var(--text-muted)">Association Concept VSJ (France).
+                                    Поддержка инфраструктуры и консалтинг.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -426,7 +435,8 @@
                             <div class="timeline-content">
                                 <span class="date">2015 — 2024</span>
                                 <h3>Professional Chef</h3>
-                                <p>Управление командами 15+ человек в условиях экстремального давления.</p>
+                                <p style="font-size:0.85rem; color:var(--text-muted)">Управление командами 15+ человек.
+                                    Работа в условиях экстремального давления.</p>
                             </div>
                         </div>
                     </div>
@@ -438,7 +448,8 @@
                     <h2 class="section-title">Tech Stack</h2>
                     <div class="stack-group">
                         <h3>Core</h3>
-                        <div class="tags-cloud"><span>Go</span><span>TypeScript</span><span>Node.js</span></div>
+                        <div class="tags-cloud">
+                            <span>Go</span><span>TypeScript</span><span>Node.js</span><span>Python</span></div>
                         <h3>Frontend</h3>
                         <div class="tags-cloud"><span>React</span><span>Next.js</span><span>Tailwind</span></div>
                         <h3>Backend</h3>
@@ -455,13 +466,11 @@
                 <div class="card-content">
                     <div class="card-top">
                         <i class="ri-sparkling-fill icon-main" style="color: #FFD700;"></i>
-                        <span
-                            style="background:var(--accent); color:#000; font-size:0.6rem; font-weight:900; padding:2px 8px; border-radius:4px;">LIVE</span>
+                        <span class="live-badge">LIVE</span>
                     </div>
-                    <h3>K-Assistant AI</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px;">
-                        SaaS-платформа для маркетплейсов. Интеллектуальная генерация SEO-карточек и калькулятор
-                        юнит-экономики.
+                    <h3 style="color:#fff; margin-bottom:10px">K-Assistant AI</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px; flex-grow:1">
+                        SaaS-платформа для маркетплейсов. Автогенерация SEO-карточек и калькулятор юнит-экономики.
                     </p>
                     <div class="tags-cloud"><span>Next.js</span><span>OpenAI API</span><span>Prisma</span></div>
                 </div>
@@ -473,18 +482,46 @@
                         <i class="ri-spy-fill icon-main"></i>
                         <i class="ri-arrow-right-up-line arrow"></i>
                     </div>
-                    <h3>AI Phish Tank</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px;">
+                    <h3 style="color:#fff; margin-bottom:10px">AI Phish Tank</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px; flex-grow:1">
                         Инструмент Red Teaming. Генерация векторов атак с помощью локальной LLM (Llama 3).
                     </p>
                     <div class="tags-cloud"><span>Go</span><span>Llama 3</span><span>Docker</span></div>
+                </div>
+            </a>
+
+            <a href="https://github.com/mordaHQ" class="card" target="_blank">
+                <div class="card-content">
+                    <div class="card-top">
+                        <i class="ri-music-2-fill icon-main"></i>
+                        <i class="ri-arrow-right-up-line arrow"></i>
+                    </div>
+                    <h3 style="color:#fff; margin-bottom:10px">VK Music Downloader</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px; flex-grow:1">
+                        Сервис для выгрузки медиаконтента с сохранением метаданных и обложек.
+                    </p>
+                    <div class="tags-cloud"><span>JavaScript</span><span>API</span><span>Node.js</span></div>
+                </div>
+            </a>
+
+            <a href="https://github.com/mordaHQ" class="card" target="_blank">
+                <div class="card-content">
+                    <div class="card-top">
+                        <i class="ri-bit-coin-fill icon-main"></i>
+                        <i class="ri-arrow-right-up-line arrow"></i>
+                    </div>
+                    <h3 style="color:#fff; margin-bottom:10px">Telegram Crypto Bot</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px; flex-grow:1">
+                        Бот для мониторинга курсов и уведомлений о резких изменениях на бирже.
+                    </p>
+                    <div class="tags-cloud"><span>Python</span><span>WebSockets</span><span>Docker</span></div>
                 </div>
             </a>
         </div>
 
         <footer
             style="margin-top: 80px; text-align: center; color: rgba(255,255,255,0.15); font-size: 0.75rem; font-family: var(--font-code);">
-            © 2026 E. Fedorchuk • Engineering quality into every line.
+            © 2026 Евгений Федорчук • Engineering quality into every line.
         </footer>
     </main>
 
@@ -493,32 +530,32 @@
                 class="ri-home-5-line"></i></a>
         <a href="https://github.com/mordaHQ" target="_blank" class="dock-item"><i class="ri-github-fill"></i></a>
         <a href="https://t.me/lxvsshall" target="_blank" class="dock-item"><i class="ri-telegram-fill"></i></a>
-        <button onclick="copyEmail()" class="dock-item" style="background:none; border:none; cursor:pointer;"><i
+        <button onclick="copyEmail()" class="dock-item" style="background:none; border:none;"><i
                 class="ri-mail-send-line"></i></button>
     </nav>
 
     <script>
-        // Обновление времени Almaty
+        // Время Almaty
         function updateTime() {
             const now = new Date();
-            const timeStr = now.toLocaleTimeString('ru-RU', { timeZone: 'Asia/Almaty', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const timeStr = now.toLocaleTimeString('ru-RU', { timeZone: 'Asia/Almaty', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
             document.getElementById('clock').textContent = timeStr;
         }
         setInterval(updateTime, 1000); updateTime();
 
-        // Печатающийся текст
-        const words = ["Software Engineer", "Frontend Developer", "Tool Creator"];
+        // Печатная машинка
+        const words = ["Software Engineer", "Frontend Developer", "AI Integrator"];
         let i = 0, j = 0, isDeleting = false;
         function type() {
             const current = words[i];
             document.getElementById("typewriter").textContent = isDeleting ? current.substring(0, j--) : current.substring(0, j++);
             if (!isDeleting && j > current.length) { isDeleting = true; setTimeout(type, 2000); }
             else if (isDeleting && j === 0) { isDeleting = false; i = (i + 1) % words.length; setTimeout(type, 500); }
-            else { setTimeout(type, isDeleting ? 50 : 150); }
+            else { setTimeout(type, isDeleting ? 60 : 150); }
         }
         type();
 
-        // 3D Tilt Эффект
+        // 3D Tilt
         if (window.innerWidth > 900) {
             document.querySelectorAll('.card').forEach(card => {
                 card.addEventListener('mousemove', (e) => {
@@ -527,11 +564,9 @@
                     const y = e.clientY - rect.top;
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -5;
-                    const rotateY = ((x - centerX) / centerX) * 5;
+                    const rotateX = ((y - centerY) / centerY) * -6;
+                    const rotateY = ((x - centerX) / centerX) * 6;
                     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                    card.style.setProperty('--x', `${x}px`);
-                    card.style.setProperty('--y', `${y}px`);
                 });
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
@@ -539,24 +574,22 @@
             });
         }
 
-        // Конфетти и Копирование
-        function triggerConfetti() {
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#64FFDA', '#ffffff'] });
-        }
+        // Конфетти и Копия
+        function triggerConfetti() { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#64FFDA', '#ffffff'] }); }
         function copyEmail() {
             navigator.clipboard.writeText("devmorda@gmail.com");
             triggerConfetti();
             alert("Email скопирован!");
         }
 
-        // Glow эффект мыши
+        // Glow
         const glow = document.getElementById('glow');
         document.addEventListener('mousemove', (e) => {
             glow.style.left = e.clientX + 'px';
             glow.style.top = e.clientY + 'px';
         });
 
-        // Плавное появление при скролле
+        // Скролл-анимация
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
