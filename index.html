@@ -12,7 +12,7 @@
     <meta property="og:title" content="Евгений Федорчук | Fullstack Engineer">
     <meta property="og:description" content="SaaS Developer & AI Integration Specialist. React, Next.js, Go.">
 
-    <title>Евгений Федорчук | Software Engineer Portfolio</title>
+    <title>Евгений Федорчук | Software Engineer</title>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
@@ -21,7 +21,6 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
-        /* --- ПЕРЕМЕННЫЕ (Без изменений) --- */
         :root {
             --bg: #0B0C10;
             --card-bg: #15161C;
@@ -32,6 +31,11 @@
             --font-code: 'JetBrains Mono', monospace;
         }
 
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             background-color: var(--bg);
             color: var(--text-main);
@@ -40,9 +44,10 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             padding-bottom: 120px;
+            cursor: default;
         }
 
-        /* --- ЭФФЕКТЫ (Шум и Глоу) --- */
+        /* --- Noise Overlay --- */
         body::after {
             content: "";
             position: fixed;
@@ -53,7 +58,7 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 999;
-            opacity: 0.04;
+            opacity: 0.03;
         }
 
         .grid-overlay {
@@ -62,80 +67,89 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
+            background-image: linear-gradient(rgba(100, 255, 218, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(100, 255, 218, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: -2;
-            mask-image: radial-gradient(circle at center, black, transparent 80%);
+            mask-image: radial-gradient(circle at center, black, transparent 90%);
         }
 
         .cursor-glow {
             position: fixed;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(100, 255, 218, 0.1), transparent 70%);
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.07), transparent 70%);
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: -1;
+            transition: opacity 0.5s ease;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 80px 24px;
         }
 
         h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
+            font-size: clamp(3rem, 8vw, 5rem);
+            line-height: 1;
             margin: 0 0 24px 0;
-            letter-spacing: -0.04em;
-            background: linear-gradient(to right, #fff, #94a3b8);
+            letter-spacing: -0.05em;
+            font-weight: 800;
+            background: linear-gradient(to bottom, #fff 40%, #555);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .section-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: #fff;
-            opacity: 0.9;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 32px;
+            color: var(--accent);
+            opacity: 0.8;
+            font-family: var(--font-code);
         }
 
         .hero {
-            margin-bottom: 60px;
-            text-align: left;
+            margin-bottom: 100px;
         }
 
         .hero-top-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
+            margin-bottom: 32px;
             gap: 16px;
         }
 
         .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(100, 255, 218, 0.1);
+            gap: 10px;
+            background: rgba(100, 255, 218, 0.05);
             color: var(--accent);
-            padding: 6px 12px;
+            padding: 8px 16px;
             border-radius: 100px;
-            font-size: 0.8rem;
-            border: 1px solid rgba(100, 255, 218, 0.2);
+            font-size: 0.75rem;
+            border: 1px solid rgba(100, 255, 218, 0.1);
             cursor: pointer;
             font-family: var(--font-code);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .status-badge:hover {
+            background: rgba(100, 255, 218, 0.15);
+            border-color: var(--accent);
+            transform: scale(1.02);
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: var(--accent);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent);
+            box-shadow: 0 0 12px var(--accent);
             animation: pulse 2s infinite;
         }
 
@@ -143,156 +157,132 @@
 
             0%,
             100% {
+                transform: scale(1);
                 opacity: 1;
             }
 
             50% {
+                transform: scale(1.5);
                 opacity: 0.5;
             }
         }
 
         .role {
-            font-size: 1.5rem;
-            color: var(--accent);
+            font-size: 1.6rem;
+            color: #fff;
             font-weight: 500;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             font-family: var(--font-code);
         }
 
         .cursor {
             display: inline-block;
-            width: 2px;
-            height: 1.2em;
+            width: 3px;
+            height: 1em;
             background-color: var(--accent);
             animation: blink 1s infinite;
-            margin-left: 4px;
-            vertical-align: middle;
+            margin-left: 5px;
         }
 
         @keyframes blink {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
             50% {
                 opacity: 0;
             }
         }
 
         .tagline {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--text-muted);
-            max-width: 600px;
+            max-width: 650px;
             line-height: 1.6;
         }
 
-        .highlight {
-            color: var(--accent);
-            font-weight: 500;
-            font-family: var(--font-code);
-        }
-
-        /* --- GRID & CARDS --- */
+        /* --- Bento & Cards --- */
         .bento-wrapper {
             display: grid;
-            grid-template-columns: 1.6fr 1fr;
+            grid-template-columns: 1.8fr 1fr;
             gap: 24px;
-            margin-bottom: 80px;
+            margin-bottom: 100px;
         }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 24px;
-            margin-bottom: 80px;
-        }
-
-        .tilt-card {
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
-            will-change: transform;
         }
 
         .bento-item,
-        .card,
-        .cta-card {
+        .card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 32px;
+            border-radius: 24px;
             position: relative;
             overflow: hidden;
-            display: block;
-            text-decoration: none;
+            transition: all 0.4s ease;
         }
 
-        .card {
-            padding: 0;
-            height: 100%;
+        .card:hover {
+            border-color: rgba(100, 255, 218, 0.3);
+            background: rgba(255, 255, 255, 0.04);
         }
 
         .card-content {
-            padding: 32px;
-            background: var(--card-bg);
-            position: relative;
-            z-index: 2;
+            padding: 40px;
             height: 100%;
-            box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
         .card-top {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 24px;
+            align-items: flex-start;
+            margin-bottom: 30px;
         }
 
         .icon-main {
-            font-size: 2rem;
-            color: #fff;
+            font-size: 2.2rem;
+            color: var(--accent);
         }
 
         .arrow {
+            font-size: 1.4rem;
             color: var(--text-muted);
-            font-size: 1.5rem;
-            transition: 0.3s;
+            transition: 0.3s ease;
         }
 
         .card:hover .arrow {
             color: var(--accent);
-            transform: translate(5px, -5px);
+            transform: translate(4px, -4px);
         }
 
-        /* --- NEW BADGE --- */
         .new-badge {
             background: var(--accent);
-            color: #000;
+            color: var(--bg);
             font-size: 0.65rem;
             font-weight: 800;
-            padding: 2px 8px;
-            border-radius: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
             text-transform: uppercase;
-            position: absolute;
-            top: 32px;
-            right: 60px;
             font-family: var(--font-code);
+            position: absolute;
+            top: 20px;
+            right: 20px;
         }
 
         .card h3 {
-            margin: 0 0 12px 0;
+            font-size: 1.5rem;
+            margin: 0 0 15px 0;
+            font-weight: 700;
             color: #fff;
-            font-size: 1.4rem;
         }
 
         .card p {
-            color: var(--text-muted);
             font-size: 0.95rem;
-            margin-bottom: 24px;
-            line-height: 1.6;
-            flex-grow: 1;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 30px;
         }
 
         .tech-stack {
@@ -302,107 +292,93 @@
         }
 
         .tech-stack span {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--accent);
-            background: rgba(100, 255, 218, 0.1);
-            padding: 4px 12px;
+            background: rgba(100, 255, 218, 0.06);
+            padding: 6px 12px;
             border-radius: 100px;
             font-family: var(--font-code);
+            border: 1px solid rgba(100, 255, 218, 0.1);
         }
 
-        /* --- TIMELINE --- */
+        /* --- Timeline --- */
         .timeline {
             position: relative;
-            padding-left: 12px;
-        }
-
-        .timeline::before {
-            content: "";
-            position: absolute;
-            left: 27px;
-            top: 10px;
-            bottom: 10px;
-            width: 2px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 0;
         }
 
         .timeline-item {
             display: flex;
-            gap: 20px;
-            margin-bottom: 32px;
+            gap: 24px;
+            margin-bottom: 40px;
             position: relative;
-            z-index: 1;
         }
 
         .timeline-icon {
-            width: 54px;
-            height: 54px;
-            background: rgba(255, 255, 255, 0.05);
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
-            color: var(--text-muted);
+            color: var(--accent);
             flex-shrink: 0;
         }
 
-        .timeline-item.active .timeline-icon {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: rgba(100, 255, 218, 0.1);
-            box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
-        }
-
         .timeline-content h3 {
-            font-size: 1rem;
-            color: #fff;
+            font-size: 1.1rem;
             margin: 4px 0;
+            color: #fff;
         }
 
         .timeline-content .date {
             font-size: 0.75rem;
             color: var(--accent);
             font-family: var(--font-code);
-            text-transform: uppercase;
+            font-weight: 700;
         }
 
+        /* --- Dock --- */
         .dock-menu {
             position: fixed;
             bottom: 32px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(21, 22, 28, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 24px;
+            background: rgba(15, 16, 22, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 20px;
             border-radius: 100px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             z-index: 1000;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         .dock-item {
-            color: #94A3B8;
-            font-size: 1.5rem;
-            transition: 0.3s;
-            text-decoration: none;
-            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            padding: 10px;
+            border-radius: 50%;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
         }
 
         .dock-item:hover {
             color: var(--accent);
-            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
         }
 
         .scroll-hidden {
             opacity: 0;
-            transform: translateY(20px);
-            transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: translateY(30px);
+            transition: 1s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .visible {
@@ -411,8 +387,8 @@
         }
 
         @media (max-width: 900px) {
-            h1 {
-                font-size: 3.5rem;
+            .container {
+                padding: 40px 20px;
             }
 
             .bento-wrapper,
@@ -420,8 +396,14 @@
                 grid-template-columns: 1fr;
             }
 
-            .cursor-glow {
-                display: none;
+            h1 {
+                font-size: 3.2rem;
+            }
+
+            .dock-menu {
+                width: 90%;
+                justify-content: center;
+                bottom: 20px;
             }
         }
     </style>
@@ -435,120 +417,123 @@
         <header class="hero scroll-hidden">
             <div class="hero-top-row">
                 <div class="status-badge" onclick="triggerConfetti()">
-                    <span class="status-dot"></span> Available for projects
+                    <span class="status-dot"></span> Available for new challenges
                 </div>
                 <div class="location-badge"
-                    style="color: var(--text-muted); font-size: 0.85rem; font-family: var(--font-code);">
-                    <i class="ri-map-pin-line"></i> Almaty <span id="clock" style="color:#fff">00:00</span>
+                    style="color: var(--text-muted); font-size: 0.8rem; font-family: var(--font-code);">
+                    <i class="ri-map-pin-2-fill"></i> Almaty, KZ <span id="clock"
+                        style="color:#fff; margin-left: 8px;">00:00</span>
                 </div>
             </div>
 
             <h1>Евгений<br>Федорчук</h1>
 
             <p class="role">
-                I build <span id="typewriter"></span><span class="cursor">|</span>
+                Software Engineer building <span id="typewriter"></span><span class="cursor"></span>
             </p>
 
             <p class="tagline">
-                Специализируюсь на создании масштабируемых SaaS-решений и интеграции AI.
-                Software Engineer в <span class="highlight">Association Concept VSJ</span>.
+                Проектирую и разрабатываю высокопроизводительные SaaS-системы с глубокой интеграцией искусственного
+                интеллекта.
             </p>
         </header>
 
         <div class="bento-wrapper scroll-hidden">
-            <section class="about-card bento-item tilt-card">
-                <h2 class="section-title">Experience</h2>
-                <div class="timeline">
-                    <div class="timeline-item active">
-                        <div class="timeline-icon"><i class="ri-robot-line"></i></div>
-                        <div class="timeline-content">
-                            <span class="date">Current</span>
-                            <h3>SaaS & AI Development</h3>
-                            <p>Фокус на создании AI-ассистентов и автоматизации бизнес-процессов (Kaspi AI Assistant).
-                            </p>
+            <section class="about-card bento-item">
+                <div style="padding: 40px;">
+                    <h2 class="section-title">Experience</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i class="ri-robot-2-line"></i></div>
+                            <div class="timeline-content">
+                                <span class="date">Current</span>
+                                <h3>SaaS & AI Architecture</h3>
+                                <p style="font-size: 0.9rem; color: var(--text-muted);">Разработка экосистем для
+                                    e-commerce и автоматизация аналитики.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-icon"><i class="ri-global-line"></i></div>
-                        <div class="timeline-content">
-                            <span class="date">2024</span>
-                            <h3>IT Specialist</h3>
-                            <p class="highlight">Association Concept VSJ (France)</p>
-                            <p>Инфраструктурная поддержка и системное администрирование.</p>
+                        <div class="timeline-item">
+                            <div class="timeline-icon"><i class="ri-terminal-window-line"></i></div>
+                            <div class="timeline-content">
+                                <span class="date">2024</span>
+                                <h3>IT Infrastructure Specialist</h3>
+                                <p style="font-size: 0.9rem; color: var(--text-muted);">Association Concept VSJ
+                                    (France). Оптимизация и поддержка систем.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="stack-card bento-item tilt-card">
-                <h2 class="section-title">Tech Stack</h2>
-                <div class="tags-cloud" style="display: flex; flex-wrap: wrap; gap: 8px;">
-                    <span>Next.js</span><span>TypeScript</span><span>Prisma</span><span>PostgreSQL</span>
-                    <span>Go</span><span>Docker</span><span>Tailwind</span><span>OpenAI API</span>
-                    <span>Python</span><span>Nginx</span>
+            <section class="stack-card bento-item">
+                <div style="padding: 40px;">
+                    <h2 class="section-title">Stack</h2>
+                    <div class="tags-cloud">
+                        <span>TypeScript</span><span>Go</span><span>Next.js</span><span>Prisma</span>
+                        <span>PostgreSQL</span><span>Docker</span><span>OpenAI API</span><span>Redis</span>
+                        <span>Python</span><span>Tailwind</span>
+                    </div>
                 </div>
             </section>
         </div>
 
-        <section class="projects scroll-hidden">
-            <h2 class="section-title">Latest Work</h2>
+        <section class="projects">
+            <h2 class="section-title">Selected Projects</h2>
             <div class="projects-grid">
 
-                <a href="https://kaspi-ai-assistant.vercel.app" class="card tilt-card" target="_blank">
-                    <span class="new-badge">New</span>
+                <a href="https://kaspi-ai-assistant.vercel.app" class="card scroll-hidden" target="_blank">
+                    <span class="new-badge">SaaS</span>
                     <div class="card-content">
                         <div class="card-top">
-                            <i class="ri-sparkling-2-fill icon-main" style="color: #FFD700;"></i>
+                            <i class="ri-sparkling-fill icon-main" style="color: #64FFDA;"></i>
                             <i class="ri-arrow-right-up-line arrow"></i>
                         </div>
-                        <h3>Kaspi AI Assistant</h3>
-                        <p>Интеллектуальная SaaS-платформа для маркетплейсов.
-                            • Автогенерация SEO-карточек (OpenAI).
-                            • Юнит-экономика и расчет чистой прибыли.
-                            • Безопасная OAuth авторизация и PostgreSQL/Prisma хранилище.</p>
+                        <h3>K-Assistant AI</h3>
+                        <p>Интеллектуальная SaaS-платформа для маркетплейсов. Автогенерация SEO-контента и продвинутая
+                            юнит-экономика.</p>
                         <div class="tech-stack">
-                            <span>Next.js 14</span><span>Prisma</span><span>OpenAI</span><span>PostgreSQL</span>
+                            <span>Next.js</span><span>Prisma</span><span>PostgreSQL</span><span>AI</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="https://github.com/mordaHQ/ai-phish-tank" class="card tilt-card" target="_blank">
+                <a href="https://github.com/mordaHQ/ai-phish-tank" class="card scroll-hidden" target="_blank">
                     <div class="card-content">
                         <div class="card-top">
-                            <i class="ri-spy-fill icon-main"></i>
+                            <i class="ri-shield-flash-line icon-main"></i>
                             <i class="ri-arrow-right-up-line arrow"></i>
                         </div>
                         <h3>AI Phish Tank</h3>
-                        <p>Инструмент для кибербезопасности. Генерация фишинговых сценариев с использованием локальных
-                            LLM.</p>
+                        <p>Инструмент для анализа угроз безопасности. Использование локальных LLM для имитации атак.</p>
                         <div class="tech-stack">
-                            <span>Go</span><span>Llama 3</span><span>PostgreSQL</span>
+                            <span>Go</span><span>Llama 3</span><span>CyberSec</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="https://github.com/mordaHQ/entropy-bridge" class="card tilt-card" target="_blank">
+                <a href="https://github.com/mordaHQ/entropy-bridge" class="card scroll-hidden" target="_blank">
                     <div class="card-content">
                         <div class="card-top">
-                            <i class="ri-pulse-line icon-main"></i>
+                            <i class="ri-broadcast-line icon-main"></i>
                             <i class="ri-arrow-right-up-line arrow"></i>
                         </div>
                         <h3>Entropy Bridge</h3>
-                        <p>Air-gap транспорт данных через аудиоволны. Кастомная DSP модуляция на языке Go.</p>
+                        <p>Передача зашифрованных данных через звуковые волны (Air-gap). Кастомные алгоритмы модуляции.
+                        </p>
                         <div class="tech-stack">
-                            <span>Go</span><span>DSP</span><span>Audio Engineering</span>
+                            <span>Go</span><span>DSP</span><span>Audio</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="https://github.com/mordaHQ/docker-inspector" class="card tilt-card" target="_blank">
+                <a href="https://github.com/mordaHQ/docker-inspector" class="card scroll-hidden" target="_blank">
                     <div class="card-content">
                         <div class="card-top">
-                            <i class="ri-docker-fill icon-main"></i>
+                            <i class="ri-instance-line icon-main"></i>
                             <i class="ri-arrow-right-up-line arrow"></i>
                         </div>
                         <h3>Docker Inspector</h3>
-                        <p>Real-time мониторинг и визуализация состояния контейнеризированной инфраструктуры.</p>
+                        <p>Система мониторинга и глубокого анализа контейнеров в реальном времени.</p>
                         <div class="tech-stack">
                             <span>Go</span><span>Docker API</span><span>React</span>
                         </div>
@@ -557,32 +542,36 @@
             </div>
         </section>
 
-        <section class="cta-section scroll-hidden">
-            <div class="cta-card tilt-card" style="text-align: center;">
-                <h2>Let's build the future together</h2>
-                <p style="margin-bottom: 32px;">Открыт к предложениям по разработке сложных систем и AI-интеграций.</p>
-                <button onclick="copyEmail()" class="btn-primary"
-                    style="padding: 14px 28px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; background: var(--accent); color: #000;">
-                    <i class="ri-mail-send-line"></i> devmorda@gmail.com
+        <section class="cta-section scroll-hidden" style="margin-top: 100px;">
+            <div class="card"
+                style="padding: 60px 20px; text-align: center; background: radial-gradient(circle at top, rgba(100,255,218,0.05), transparent);">
+                <h2 style="font-size: 2rem; margin-bottom: 20px;">Ready for the next big thing?</h2>
+                <p style="color: var(--text-muted); margin-bottom: 40px; max-width: 500px; margin-inline: auto;">Открыт
+                    к обсуждению сложных инженерных задач и инновационных проектов.</p>
+                <button onclick="copyEmail()"
+                    style="padding: 16px 40px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; background: var(--accent); color: var(--bg); font-family: var(--font-main); transition: 0.3s ease;">
+                    Начать диалог
                 </button>
             </div>
         </section>
 
         <footer>
             <p
-                style="text-align: center; color: rgba(255,255,255,0.2); font-size: 0.8rem; margin-top: 80px; font-family: var(--font-code);">
-                © <span id="year"></span> Евгений Федорчук. <br> Powered by engineering passion.
+                style="text-align: center; color: rgba(255,255,255,0.15); font-size: 0.75rem; margin-top: 100px; font-family: var(--font-code);">
+                © <span id="year"></span> Евгений Федорчук. <br> Built with precision & caffeine.
             </p>
         </footer>
     </main>
 
     <nav class="dock-menu">
-        <a href="#" class="dock-item" onclick="window.scrollTo({top:0, behavior:'smooth'});"><i
-                class="ri-home-5-line"></i></a>
-        <a href="https://github.com/mordaHQ" target="_blank" class="dock-item"><i class="ri-github-fill"></i></a>
-        <a href="https://t.me/lxvsshall" target="_blank" class="dock-item"><i class="ri-telegram-fill"></i></a>
-        <button onclick="copyEmail()" class="dock-item" style="background:none; border:none; padding:0;"><i
-                class="ri-mail-send-line"></i></button>
+        <a href="#" class="dock-item" onclick="window.scrollTo({top:0, behavior:'smooth'});" title="Home"><i
+                class="ri-home-line"></i></a>
+        <a href="https://github.com/mordaHQ" target="_blank" class="dock-item" title="GitHub"><i
+                class="ri-github-line"></i></a>
+        <a href="https://t.me/lxvsshall" target="_blank" class="dock-item" title="Telegram"><i
+                class="ri-telegram-line"></i></a>
+        <button onclick="copyEmail()" class="dock-item" style="background:none; border:none;" title="Copy Email"><i
+                class="ri-mail-line"></i></button>
     </nav>
 
     <script>
@@ -595,7 +584,7 @@
         }
         setInterval(updateTime, 1000); updateTime();
 
-        const words = ["AI Assistants", "SaaS Platforms", "Modern Interfaces", "System Tools"];
+        const words = ["AI Systems", "SaaS Solutions", "Infrastructure", "Scalable Apps"];
         let i = 0; let isDeleting = false;
         function typeWriter() {
             const heading = document.getElementById("typewriter");
@@ -603,12 +592,12 @@
             const currentText = heading.innerText;
             if (!isDeleting && currentText !== word) {
                 heading.innerText = word.substring(0, currentText.length + 1);
-                setTimeout(typeWriter, 100);
+                setTimeout(typeWriter, 80);
             } else if (!isDeleting && currentText === word) {
                 isDeleting = true; setTimeout(typeWriter, 2000);
             } else if (isDeleting && currentText !== "") {
                 heading.innerText = word.substring(0, currentText.length - 1);
-                setTimeout(typeWriter, 50);
+                setTimeout(typeWriter, 40);
             } else {
                 isDeleting = false; i = (i + 1) % words.length; setTimeout(typeWriter, 500);
             }
@@ -617,35 +606,17 @@
 
         function copyEmail() {
             navigator.clipboard.writeText("devmorda@gmail.com");
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#64FFDA', '#ffffff'] });
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#64FFDA', '#ffffff'] });
             alert("Email скопирован!");
         }
 
         const glow = document.getElementById('glow');
         document.addEventListener('mousemove', (e) => {
-            if (window.innerWidth > 900) {
+            requestAnimationFrame(() => {
                 glow.style.left = e.clientX + 'px';
                 glow.style.top = e.clientY + 'px';
-            }
-        });
-
-        if (window.innerWidth > 900) {
-            document.querySelectorAll('.tilt-card').forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -5;
-                    const rotateY = ((x - centerX) / centerX) * 5;
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-                });
             });
-        }
+        });
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
